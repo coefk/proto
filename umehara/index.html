@@ -24,6 +24,16 @@
             text-align: center;
             background-color: black;
             color: white;
+            padding: 32px;
+        }
+        #btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            cursor: pointer;
+            width: 50px;
+            height: 20px;
+            opacity: 0.3;
         }
     </style>
 </head>
@@ -31,21 +41,31 @@
     <header>Umehara</header>
     <main>
         <img src="/img/proto_ume_QR.png" alt="サイトのQRコード画像">
-        <h1>タイトル</h1>
-        <h2>学んだもの・触ったもの</h2>
+        <h1>IT関連の経験</h1>
+        <h2>学んだ・触ったもの</h2>
         <h3>Linux(Ubuntu系)</h3>
-        <p>ゼミ内のファイルサーバー（Samba）を設立。
-            <br>シェルスクリプト大量の画像処理やファイル整理を自動化（bash, [画像処理ライブラリ名], Vim）。
+        <p>ゼミ内のファイルサーバー（Samba）を構築。
+            <br>シェルスクリプト大量の画像処理やファイル整理を自動化（bash, Vim, dcraw[画像加工ツール]）。
         </p>
         <h3>Unity / Blender</h3>
-        <p>Unity で 3DCG のアプリを。（C♯）</p>
-        <p>Blender を Python のスクリプトで操作</p>
+        <p>Unity で 3DCG のアプリを作成。（C#）</p>
+        <p>Blender を Python のスクリプトで操作等。</p>
         <h3>Webサイト</h3>
-        <p>Unity で制作されたアプリを WebGL でビルドし、Webサイト上で体験できるように公開。（HTML, CSS, JavaScript）GitHub/サブバ</p>
+        <p>Unity で制作されたアプリを WebGL でビルドし、Webサイト上で体験できるように公開。（HTML, CSS, JavaScript）
+            <br>Git, Subversion
+        </p>
+        <h3>パーソナライズ訓練</h3>
+        <p>Excel VBA</p>
+        <button type="button" id="btn">TOP</button>
     </main>
     <footer>umehara</footer>
 
     <script>
+        const btn = document.getElementById("btn");
+        btn.addEventListener("click", scroll_top);
+        function scroll_top() {
+            window.scroll({ top: 0, behavior: "smooth" });
+        }
     </script>
 </body>
 </html>
