@@ -26,27 +26,38 @@
             color: white;
             padding: 32px;
         }
-        #btn {
+        #top-btn {
             position: fixed;
             bottom: 30px;
             right: 30px;
             cursor: pointer;
-            width: 50px;
+            border: none;
+            width: 30px;
             height: 20px;
             opacity: 0.3;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
 </head>
 <body>
     <header>Umehara</header>
     <main>
-        <img src="/img/proto_ume_QR.png" alt="サイトのQRコード画像">
+        <details>
+            <summary>QR</summary>
+            <img src="/img/proto_ume_QR.png" alt="サイトのQRコード">
+        </details>
         <h1>IT関連の経験</h1>
         <h2>学んだ・触ったもの</h2>
         <h3>Linux(Ubuntu系)</h3>
         <p>ゼミ内のファイルサーバー（Samba）を構築。
-            <br>シェルスクリプト大量の画像処理やファイル整理を自動化（bash, Vim, dcraw[画像加工ツール]）。
+            <br>シェルスクリプトで大量の画像処理やファイル整理を自動化（bash, Vim, dcraw[画像加工ツール]）。
         </p>
+        <pre><code>
+            #!/bin/sh
+            set -eu
+            echo "開始"
+            time -p dcraw -4 -T *.NEF && echo "変換"
+        </code></pre>
         <h3>Unity / Blender</h3>
         <p>Unity で 3DCG のアプリを作成。（C#）</p>
         <p>Blender を Python のスクリプトで操作等。</p>
@@ -56,16 +67,18 @@
         </p>
         <h3>パーソナライズ訓練</h3>
         <p>Excel VBA</p>
-        <button type="button" id="btn">TOP</button>
+        <button type="button" id="top-btn">TOP</button>
     </main>
     <footer>umehara</footer>
 
     <script>
-        const btn = document.getElementById("btn");
-        btn.addEventListener("click", scroll_top);
+        const topbtn = document.getElementById("top-btn");
+        topbtn.addEventListener("click", scroll_top);
         function scroll_top() {
             window.scroll({ top: 0, behavior: "smooth" });
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 </html>
