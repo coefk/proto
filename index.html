@@ -4,48 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROTO</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-        }
-        header {
-            background-color: black;
-            color: white;
-            padding: 10px;
-        }
-        main {
-            padding: 20px;
-        }
-        footer {
-            text-align: center;
-            background-color: black;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
 </head>
 <body>
     <header>PROTO</header>
     <main>
-        <h1>一覧</h1>
-        <h2>徳川十五代</h2>
-        <ol id="tokugawa-list"></ol>
-        <h2>SMAP</h2>
-        <ul id="smap-list"></ul>
+        <div class="container">
+            <div class="head">
+                <h1>Test page</h1>
+                <p>作成する</p>
+            </div>
+            <div class="form">
+                <input class="input" type="text" placeholder="入力してください">
+                <button class="btn">生成</button>
+            </div>
+            <div class="qr">
+                <img class="qrImg" src="" alt="">
+            </div>
+        </div>
     </main>
     <footer>proto</footer>
-
-    <script>
-        const tokugawaShoguns = [
-            "徳川家康", "徳川秀忠", "徳川家光", "徳川家綱", "徳川綱吉", "徳川家宣", "徳川家継", "徳川吉宗", "徳川家重", "徳川家治", "徳川家斉", "徳川家慶", "徳川家定", "徳川家茂", "徳川慶喜"
-        ];
-        const listElement = document.querySelector("#tokugawa-list");
-        tokugawaShoguns.forEach(name => {
-            const li = document.createElement("li");
-            li.textContent = name;
-            listElement.appendChild(li);
-        });
-    </script>
 </body>
 </html>
