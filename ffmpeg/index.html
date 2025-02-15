@@ -6,14 +6,19 @@
     <title>文字列から音声生成</title>
 </head>
 <body>
-    <h1>文字列を音声に変換</h1>
+    <h1>文字列を音声に変換B</h1>
     <input type="text" id="textInput" placeholder="ここにテキストを入力">
     <button onclick="generateAudio()">音声を生成</button>
     <audio id="audioPlayer" controls></audio>
-    <a id="downloadLink" style="display:none">ダウンロード</a>
+    <a id="downloadLink" style="display:none">音声をダウンロード</a>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ffmpeg.wasm/0.11.0/ffmpeg.min.js"></script>
+    <!-- FFmpeg.wasmのCDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+    
     <script>
+        const { createFFmpeg, fetchFile } = FFmpeg;
+        const ffmpeg = createFFmpeg({ log: true, corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.6/ffmpeg-core.js' });
+
         async function generateAudio() {
             const text = document.getElementById("textInput").value;
             if (!text) {
@@ -21,10 +26,12 @@
                 return;
             }
 
-            const ffmpeg = FFmpeg.createFFmpeg({ log: true });
-            await ffmpeg.load();
+            // FFmpegのロード
+            if (!ffmpeg.isLoaded()) {
+                await ffmpeg.load();
+            }
 
-            // 文字列の長さに応じた音の長さ（1文字 = 0.5秒）
+            // 文字数に応じた音の長さ（1文字 = 0.5秒）
             const duration = text.length * 0.5;
             const frequency = 440; // 440Hz（ラの音）
 
