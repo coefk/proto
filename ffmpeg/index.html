@@ -3,47 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文字列から音声生成</title>
+    <title>ホワイトノイズ生成</title>
 </head>
 <body>
-    <h1>文字列を音声に変換B</h1>
-    <input type="text" id="textInput" placeholder="ここにテキストを入力">
-    <button onclick="generateAudio()">音声を生成</button>
+    <h1>ホワイトノイズを生成</h1>
+    <button onclick="generateNoise()">ノイズを再生</button>
     <audio id="audioPlayer" controls></audio>
-    <a id="downloadLink" style="display:none">音声をダウンロード</a>
+    <a id="downloadLink" style="display:none">ノイズをダウンロード</a>
 
-    <!-- FFmpeg.wasmのCDN -->
     <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
     
     <script>
-        const { createFFmpeg, fetchFile } = FFmpeg;
-        const ffmpeg = createFFmpeg({ log: true, corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.6/ffmpeg-core.js' });
+        const { createFFmpeg } = FFmpeg;
+        const ffmpeg = createFFmpeg({
+            log: true,
+            corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.6/ffmpeg-core.js'
+        });
 
-        async function generateAudio() {
-            const text = document.getElementById("textInput").value;
-            if (!text) {
-                alert("テキストを入力してください！");
-                return;
-            }
-
-            // FFmpegのロード
+        async function generateNoise() {
             if (!ffmpeg.isLoaded()) {
                 await ffmpeg.load();
             }
 
-            // 文字数に応じた音の長さ（1文字 = 0.5秒）
-            const duration = text.length * 0.5;
-            const frequency = 440; // 440Hz（ラの音）
-
-            // FFmpeg コマンドで音声を生成
+            // 3秒のホワイトノイズを生成
             await ffmpeg.run(
-                '-f', 'lavfi', 
-                '-i', `sine=frequency=${frequency}:duration=${duration}`, 
-                'output.wav'
+                '-f', 'lavfi',
+                '-i', 'anoisesrc=d=3:c=white',
+                'noise.wav'
             );
 
             // 生成した音声を取得
-            const data = ffmpeg.FS('readFile', 'output.wav');
+            const data = ffmpeg.FS('readFile', 'noise.wav');
             const blob = new Blob([data.buffer], { type: 'audio/wav' });
             const url = URL.createObjectURL(blob);
 
@@ -54,9 +44,9 @@
             // ダウンロードリンクを表示
             const downloadLink = document.getElementById("downloadLink");
             downloadLink.href = url;
-            downloadLink.download = "generated_audio.wav";
+            downloadLink.download = "white_noise.wav";
             downloadLink.style.display = "block";
-            downloadLink.textContent = "音声をダウンロード";
+            downloadLink.textContent = "ノイズをダウンロード";
         }
     </script>
 </body>
